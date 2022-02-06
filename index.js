@@ -32,6 +32,13 @@ app.use('/api/auth', require('./routes/auth'));  // /api/auth endpoint banana ha
 
 app.use('/api/notes', require('./routes/notes'));
 
+// Heroku
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
+});
+
 app.listen(process.env.PORT || port, () => {
   console.log(`iNotebook BackEnd listening at http://localhost:${port}`);
 })
